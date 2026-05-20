@@ -1,0 +1,3208 @@
+#VRML_SIM R2019b utf8
+WorldInfo {
+  info [
+    "Autonomous Vehicle Simulation"
+    "The vehicle based on the Car PROTO is modelled with realistic physics properties."
+  ]
+  title "City"
+  ERP 0.6
+  basicTimeStep 50
+  lineScale 1
+  contactProperties [
+    ContactProperties { coulombFriction [ 8 ] softCFM 1e-05 bumpSound "" rollSound "" slideSound "" }
+    ContactProperties { material2 "CitroenCZeroWheels" coulombFriction [ 8 ] softCFM 1e-05 bumpSound "" rollSound "" slideSound "" }
+    ContactProperties { material2 "ToyotaPriusWheels"  coulombFriction [ 8 ] softCFM 1e-05 bumpSound "" rollSound "" slideSound "" }
+    ContactProperties { material2 "LincolnMKZWheels"   coulombFriction [ 8 ] softCFM 1e-05 bumpSound "" rollSound "" slideSound "" }
+    ContactProperties { material2 "RangeRoverSportSVRWheels" coulombFriction [ 8 ] softCFM 1e-05 bumpSound "" rollSound "" slideSound "" }
+    ContactProperties { material2 "TruckWheels"        coulombFriction [ 8 ] softCFM 1e-05 bumpSound "" rollSound "" slideSound "" }
+  ]
+}
+TexturedBackground { texture "noon_building_overcast" }
+TexturedBackgroundLight { texture "noon_building_overcast" castShadows FALSE }
+
+DEF GROUND Solid {
+  translation -3451.3821 1 -2372.3452
+  boundingObject DEF GROUND_PLANE Plane {
+    size 770 31455
+  }
+  locked TRUE
+  translationStep 1
+}
+DEF GROUND_SHAPE Solid {
+  translation -3451.3821 -0.02 -2372.3452
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.8 0.8
+        baseColorMap ImageTexture { url [ "textures/ground_grass.jpg" ] }
+        roughness 0.5
+        metalness 0
+        textureTransform TextureTransform { scale 500 500 }
+      }
+      geometry DEF GROUND_PLANE Plane { size 770 31455 }
+      castShadows FALSE
+      isPickable FALSE
+    }
+  ]
+  name "Ground"
+  boundingObject USE GROUND_PLANE
+  locked TRUE
+}
+Viewpoint {
+  orientation 0.0015718133004660956 0.9991629344422414 0.04087737564616572 2.947055053885618
+  position -3166.5994807068887 2.4267137017217006 -17703.63038887528
+  near 1
+  follow "veh-driver"
+  followOrientation TRUE
+  followSmoothness 0
+}
+
+
+DEF RR1 Solid {
+  translation -3500.0000 1 -18000.0000
+  rotation 0 1 0 -1.5708
+  children [
+    DEF RR1_CAVsStartExperiment StraightRoadSegment {
+      rotation 0 1 0 1.5708
+      name "RR1_Sec1_StartCAVs"
+      width 18.0
+      numberOfLanes 5
+      roadBorderHeight 0
+      length 1400
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_DriveInOnRamp StraightRoadSegment {
+      translation 296.9034 0 -333.6520
+      rotation 0 1 0 1.2708
+      name "RR1_Onramp_Str"
+      width 7.2
+      lines [ RoadLine { type "none" } ]
+      roadBorderHeight 0
+      length 1000
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_DriveInOnRamp CurvedRoadSegment {
+      translation 1400.0000 0 -515.8000
+      rotation 0 1 0 -1.5708
+      name "RR1_Onramp_Crv"
+      width 7.2
+      roadBorderHeight 0
+      roadBorderWidth [ 1.6 ]
+      curvatureRadius 500
+      totalAngle 0.3
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_MergeInHighway LaneSeparation {
+      translation 1550.0000 0 -9.0000
+      rotation 0 1 0 -1.5708
+      name "RR1_Merge_LS"
+      width 25.2
+      length 150
+      numberOfLanes 7
+      newLaneLeft FALSE
+      roadBorderHeight 0
+      roadBorderWidth 1.6
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_MergeInHighway AddLanesRoadSegment {
+      translation 1900.0000 0 0.0000
+      rotation 0 1 0 -1.5708
+      name "RR1_Merge_AL"
+      width 18.0
+      length 350
+      numberOfLanes 5
+      newLaneLeft FALSE
+      roadBorderHeight 0
+      roadBorderWidth 1.6
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_Participant_OnFreeway StraightRoadSegment {
+      translation 1900.0000 0 0.0000
+      rotation 0 1 0 1.5708
+      name "RR1_Main"
+      width 18.0
+      numberOfLanes 5
+      lines [ RoadLine { type "double" } ]
+      roadBorderHeight 0
+      length 12300
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_DivergeFromHighway AddLanesRoadSegment {
+      translation 14200.0000 0 0.0000
+      rotation 0 1 0 1.5708
+      name "RR1_Div_AL"
+      width 18.0
+      length 300
+      numberOfLanes 5
+      roadBorderHeight 0
+      roadBorderWidth 1.6
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_DivergeFromHighway LaneSeparation {
+      translation 14500.0000 0 -9.0000
+      rotation 0 1 0 1.5708
+      name "RR1_Div_LS"
+      width 25.2
+      length 300
+      numberOfLanes 7
+      roadBorderHeight 0
+      roadBorderWidth 1.6
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_CAVsExitFreeway StraightRoadSegment {
+      translation 14800.0000 0 0.0000
+      rotation 0 1 0 1.5708
+      name "RR1_Exit"
+      width 18.0
+      numberOfLanes 5
+      roadBorderHeight 0
+      length 1000
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_OffRamp_Sec1 CurvedRoadSegment {
+      translation 14800.0000 0 -515.8000
+      rotation 0 1 0 -1.2708
+      name "RR1_Trans_Sec1"
+      width 7.2
+      lines [ RoadLine { type "none" } ]
+      roadBorderHeight 0
+      roadBorderWidth [ 1.6 ]
+      curvatureRadius 500
+      totalAngle 0.3
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_OffRamp_Sec2 CurvedRoadSegment {
+      translation 15095.5202 0 439.5365
+      rotation 0 1 0 1.8708
+      name "RR1_Trans_Sec2"
+      width 7.2
+      lines [ RoadLine { type "none" } ]
+      roadBorderHeight 0
+      roadBorderWidth [ 1.6 ]
+      curvatureRadius 500
+      totalAngle 0.3
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_OffRamp_Sec3 StraightRoadSegment {
+      translation 15095.5202 0 -60.4635
+      rotation 0 1 0 1.5708
+      name "RR1_Trans_Sec3"
+      width 7.2
+      lines [ RoadLine { type "none" } ]
+      roadBorderHeight 0
+      length 700
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR1_OffRamp_Sec4 CurvedRoadSegment {
+      translation 15795.5202 0 439.5365
+      rotation 0 1 0 1.5708
+      name "RR1_Trans_Sec4"
+      width 7.2
+      lines [ RoadLine { type "none" } ]
+      roadBorderHeight 0
+      roadBorderWidth [ 1.6 ]
+      curvatureRadius 500
+      totalAngle 0.3
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+  ]
+  name "RR1"
+}
+
+DEF RR2 Solid {
+  translation -3736.4162 1 -2544.6904
+  rotation 0 1 0 -1.5708
+  children [
+    DEF RR2_CAVsStartExperiment StraightRoadSegment {
+      rotation 0 1 0 1.5708
+      name "RR2_Sec1_StartCAVs"
+      width 18.0
+      numberOfLanes 5
+      roadBorderHeight 0
+      length 1400
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR2_DriveInOnRamp StraightRoadSegment {
+      translation 487.9707 0 -274.5479
+      rotation 0 1 0 1.2708
+      name "RR2_Onramp_Str"
+      width 7.2
+      lines [ RoadLine { type "none" } ]
+      roadBorderHeight 0
+      length 800
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR2_DriveInOnRamp CurvedRoadSegment {
+      translation 1400.0000 0 -515.8000
+      rotation 0 1 0 -1.5708
+      name "RR2_Onramp_Crv"
+      width 7.2
+      roadBorderHeight 0
+      roadBorderWidth [ 1.6 ]
+      curvatureRadius 500
+      totalAngle 0.3
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR2_MergeInHighway LaneSeparation {
+      translation 1550.0000 0 -9.0000
+      rotation 0 1 0 -1.5708
+      name "RR2_Merge_LS"
+      width 25.2
+      length 150
+      numberOfLanes 7
+      newLaneLeft FALSE
+      roadBorderHeight 0
+      roadBorderWidth 1.6
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR2_MergeInHighway AddLanesRoadSegment {
+      translation 1900.0000 0 0.0000
+      rotation 0 1 0 -1.5708
+      name "RR2_Merge_AL"
+      width 18.0
+      length 350
+      numberOfLanes 5
+      newLaneLeft FALSE
+      roadBorderHeight 0
+      roadBorderWidth 1.6
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR2_Participant_OnFreeway StraightRoadSegment {
+      translation 1900.0000 0 0.0000
+      rotation 0 1 0 1.5708
+      name "RR2_Main"
+      width 18.0
+      numberOfLanes 5
+      lines [ RoadLine { type "double" } ]
+      roadBorderHeight 0
+      length 12300
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR2_DivergeFromHighway AddLanesRoadSegment {
+      translation 14200.0000 0 0.0000
+      rotation 0 1 0 1.5708
+      name "RR2_Div_AL"
+      width 18.0
+      length 300
+      numberOfLanes 5
+      roadBorderHeight 0
+      roadBorderWidth 1.6
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR2_DivergeFromHighway LaneSeparation {
+      translation 14500.0000 0 -9.0000
+      rotation 0 1 0 1.5708
+      name "RR2_Div_LS"
+      width 25.2
+      length 300
+      numberOfLanes 7
+      roadBorderHeight 0
+      roadBorderWidth 1.6
+      endLine [ "" ]
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+
+    DEF RR2_CAVsExitFreeway StraightRoadSegment {
+      translation 14800.0000 0 0.0000
+      rotation 0 1 0 1.5708
+      name "RR2_Exit"
+      width 18.0
+      numberOfLanes 5
+      roadBorderHeight 0
+      length 1000
+      rightBorderBoundingObject TRUE
+      leftBorderBoundingObject TRUE
+    }
+  ]
+  name "RR2"
+}
+
+DEF TL_onrmp0 GenericTrafficLight {
+  translation -3467.0000 0.30 -16710.0000
+  rotation 0 1 0 -0.3000
+  name "TL_onrmp0"
+  state "red"
+}
+DEF TL_img_StnGo0 GenericTrafficLight {
+  translation -3500.0000 -5 -14800.0130
+  name "TL_img_StnGo0"
+  state "red"
+}
+DEF TL_img_takeOver0 GenericTrafficLight {
+  translation -3500.0000 -5 -6599.9720
+  name "TL_img_takeOver0"
+  state "red"
+}
+DEF TL_offrmp0 GenericTrafficLight {
+  translation -3510.0000 0.50 -1950.0000
+  rotation 0 1 0 -0.3000
+  name "TL_offrmp0"
+  state "red"
+}
+
+DEF TL_onrmp1 GenericTrafficLight {
+  translation -3703.4162 0.30 -1254.6904
+  rotation 0 1 0 -0.3000
+  name "TL_onrmp1"
+  state "red"
+}
+DEF TL_img_StnGo1 GenericTrafficLight {
+  translation -3736.4162 -5 655.2966
+  name "TL_img_StnGo1"
+  state "red"
+}
+DEF TL_img_takeOver1 GenericTrafficLight {
+  translation -3736.4162 -5 8855.3376
+  name "TL_img_takeOver1"
+  state "red"
+}
+DEF TL_offrmp1 GenericTrafficLight {
+  translation -3746.4162 0.50 13505.3096
+  rotation 0 1 0 -0.3000
+  name "TL_offrmp1"
+  state "red"
+}
+
+SimpleTree {
+  translation -3485.65 1 -18000.00
+  name "RR1_TreesStart_1"
+}
+SimpleTree {
+  translation -3483.95 1 -17992.00
+  name "RR1_TreesStart_2"
+}
+SimpleTree {
+  translation -3485.65 1 -17984.00
+  name "RR1_TreesStart_3"
+}
+SimpleTree {
+  translation -3483.95 1 -17976.00
+  name "RR1_TreesStart_4"
+}
+SimpleTree {
+  translation -3485.65 1 -17968.00
+  name "RR1_TreesStart_5"
+}
+SimpleTree {
+  translation -3483.95 1 -17960.00
+  name "RR1_TreesStart_6"
+}
+SimpleTree {
+  translation -3485.65 1 -17952.00
+  name "RR1_TreesStart_7"
+}
+SimpleTree {
+  translation -3483.95 1 -17944.00
+  name "RR1_TreesStart_8"
+}
+SimpleTree {
+  translation -3485.65 1 -17936.00
+  name "RR1_TreesStart_9"
+}
+SimpleTree {
+  translation -3483.95 1 -17928.00
+  name "RR1_TreesStart_10"
+}
+SimpleTree {
+  translation -3485.65 1 -17920.00
+  name "RR1_TreesStart_11"
+}
+SimpleTree {
+  translation -3483.95 1 -17912.00
+  name "RR1_TreesStart_12"
+}
+SimpleTree {
+  translation -3485.65 1 -17904.00
+  name "RR1_TreesStart_13"
+}
+SimpleTree {
+  translation -3483.95 1 -17896.00
+  name "RR1_TreesStart_14"
+}
+SimpleTree {
+  translation -3485.65 1 -17888.00
+  name "RR1_TreesStart_15"
+}
+SimpleTree {
+  translation -3483.95 1 -17880.00
+  name "RR1_TreesStart_16"
+}
+SimpleTree {
+  translation -3485.65 1 -17872.00
+  name "RR1_TreesStart_17"
+}
+SimpleTree {
+  translation -3483.95 1 -17864.00
+  name "RR1_TreesStart_18"
+}
+SimpleTree {
+  translation -3485.65 1 -17856.00
+  name "RR1_TreesStart_19"
+}
+SimpleTree {
+  translation -3483.95 1 -17848.00
+  name "RR1_TreesStart_20"
+}
+SimpleTree {
+  translation -3485.65 1 -17840.00
+  name "RR1_TreesStart_21"
+}
+SimpleTree {
+  translation -3483.95 1 -17832.00
+  name "RR1_TreesStart_22"
+}
+SimpleTree {
+  translation -3485.65 1 -17824.00
+  name "RR1_TreesStart_23"
+}
+SimpleTree {
+  translation -3483.95 1 -17816.00
+  name "RR1_TreesStart_24"
+}
+SimpleTree {
+  translation -3485.65 1 -17808.00
+  name "RR1_TreesStart_25"
+}
+SimpleTree {
+  translation -3483.95 1 -17800.00
+  name "RR1_TreesStart_26"
+}
+SimpleTree {
+  translation -3485.65 1 -17792.00
+  name "RR1_TreesStart_27"
+}
+SimpleTree {
+  translation -3483.95 1 -17784.00
+  name "RR1_TreesStart_28"
+}
+SimpleTree {
+  translation -3485.65 1 -17776.00
+  name "RR1_TreesStart_29"
+}
+SimpleTree {
+  translation -3483.95 1 -17768.00
+  name "RR1_TreesStart_30"
+}
+SimpleTree {
+  translation -3485.65 1 -17760.00
+  name "RR1_TreesStart_31"
+}
+SimpleTree {
+  translation -3483.95 1 -17752.00
+  name "RR1_TreesStart_32"
+}
+SimpleTree {
+  translation -3485.65 1 -17744.00
+  name "RR1_TreesStart_33"
+}
+SimpleTree {
+  translation -3483.95 1 -17736.00
+  name "RR1_TreesStart_34"
+}
+SimpleTree {
+  translation -3485.65 1 -17728.00
+  name "RR1_TreesStart_35"
+}
+SimpleTree {
+  translation -3483.95 1 -17720.00
+  name "RR1_TreesStart_36"
+}
+SimpleTree {
+  translation -3485.65 1 -17712.00
+  name "RR1_TreesStart_37"
+}
+SimpleTree {
+  translation -3483.95 1 -17704.00
+  name "RR1_TreesStart_38"
+}
+SimpleTree {
+  translation -3485.65 1 -17696.00
+  name "RR1_TreesStart_39"
+}
+SimpleTree {
+  translation -3483.95 1 -17688.00
+  name "RR1_TreesStart_40"
+}
+SimpleTree {
+  translation -3485.65 1 -17680.00
+  name "RR1_TreesStart_41"
+}
+SimpleTree {
+  translation -3483.95 1 -17672.00
+  name "RR1_TreesStart_42"
+}
+SimpleTree {
+  translation -3485.65 1 -17664.00
+  name "RR1_TreesStart_43"
+}
+SimpleTree {
+  translation -3483.95 1 -17656.00
+  name "RR1_TreesStart_44"
+}
+SimpleTree {
+  translation -3485.65 1 -17648.00
+  name "RR1_TreesStart_45"
+}
+SimpleTree {
+  translation -3483.95 1 -17640.00
+  name "RR1_TreesStart_46"
+}
+SimpleTree {
+  translation -3485.65 1 -17632.00
+  name "RR1_TreesStart_47"
+}
+SimpleTree {
+  translation -3483.95 1 -17624.00
+  name "RR1_TreesStart_48"
+}
+SimpleTree {
+  translation -3485.65 1 -17616.00
+  name "RR1_TreesStart_49"
+}
+SimpleTree {
+  translation -3483.95 1 -17608.00
+  name "RR1_TreesStart_50"
+}
+SimpleTree {
+  translation -3485.65 1 -17600.00
+  name "RR1_TreesStart_51"
+}
+SimpleTree {
+  translation -3483.95 1 -17592.00
+  name "RR1_TreesStart_52"
+}
+SimpleTree {
+  translation -3485.65 1 -17584.00
+  name "RR1_TreesStart_53"
+}
+SimpleTree {
+  translation -3483.95 1 -17576.00
+  name "RR1_TreesStart_54"
+}
+SimpleTree {
+  translation -3485.65 1 -17568.00
+  name "RR1_TreesStart_55"
+}
+SimpleTree {
+  translation -3483.95 1 -17560.00
+  name "RR1_TreesStart_56"
+}
+SimpleTree {
+  translation -3485.65 1 -17552.00
+  name "RR1_TreesStart_57"
+}
+SimpleTree {
+  translation -3483.95 1 -17544.00
+  name "RR1_TreesStart_58"
+}
+SimpleTree {
+  translation -3485.65 1 -17536.00
+  name "RR1_TreesStart_59"
+}
+SimpleTree {
+  translation -3483.95 1 -17528.00
+  name "RR1_TreesStart_60"
+}
+SimpleTree {
+  translation -3485.65 1 -17520.00
+  name "RR1_TreesStart_61"
+}
+SimpleTree {
+  translation -3483.95 1 -17512.00
+  name "RR1_TreesStart_62"
+}
+SimpleTree {
+  translation -3485.65 1 -17504.00
+  name "RR1_TreesStart_63"
+}
+SimpleTree {
+  translation -3483.95 1 -17496.00
+  name "RR1_TreesStart_64"
+}
+SimpleTree {
+  translation -3485.65 1 -17488.00
+  name "RR1_TreesStart_65"
+}
+SimpleTree {
+  translation -3483.95 1 -17480.00
+  name "RR1_TreesStart_66"
+}
+SimpleTree {
+  translation -3485.65 1 -17472.00
+  name "RR1_TreesStart_67"
+}
+SimpleTree {
+  translation -3483.95 1 -17464.00
+  name "RR1_TreesStart_68"
+}
+SimpleTree {
+  translation -3485.65 1 -17456.00
+  name "RR1_TreesStart_69"
+}
+SimpleTree {
+  translation -3483.95 1 -17448.00
+  name "RR1_TreesStart_70"
+}
+SimpleTree {
+  translation -3485.65 1 -17440.00
+  name "RR1_TreesStart_71"
+}
+SimpleTree {
+  translation -3483.95 1 -17432.00
+  name "RR1_TreesStart_72"
+}
+SimpleTree {
+  translation -3485.65 1 -17424.00
+  name "RR1_TreesStart_73"
+}
+SimpleTree {
+  translation -3483.95 1 -17416.00
+  name "RR1_TreesStart_74"
+}
+SimpleTree {
+  translation -3485.65 1 -17408.00
+  name "RR1_TreesStart_75"
+}
+SimpleTree {
+  translation -3483.95 1 -17400.00
+  name "RR1_TreesStart_76"
+}
+SimpleTree {
+  translation -3485.65 1 -17392.00
+  name "RR1_TreesStart_77"
+}
+SimpleTree {
+  translation -3483.95 1 -17384.00
+  name "RR1_TreesStart_78"
+}
+SimpleTree {
+  translation -3485.65 1 -17376.00
+  name "RR1_TreesStart_79"
+}
+SimpleTree {
+  translation -3483.95 1 -17368.00
+  name "RR1_TreesStart_80"
+}
+SimpleTree {
+  translation -3485.65 1 -17360.00
+  name "RR1_TreesStart_81"
+}
+SimpleTree {
+  translation -3483.95 1 -17352.00
+  name "RR1_TreesStart_82"
+}
+SimpleTree {
+  translation -3485.65 1 -17344.00
+  name "RR1_TreesStart_83"
+}
+SimpleTree {
+  translation -3483.95 1 -17336.00
+  name "RR1_TreesStart_84"
+}
+SimpleTree {
+  translation -3485.65 1 -17328.00
+  name "RR1_TreesStart_85"
+}
+SimpleTree {
+  translation -3483.95 1 -17320.00
+  name "RR1_TreesStart_86"
+}
+SimpleTree {
+  translation -3485.65 1 -17312.00
+  name "RR1_TreesStart_87"
+}
+SimpleTree {
+  translation -3483.95 1 -17304.00
+  name "RR1_TreesStart_88"
+}
+SimpleTree {
+  translation -3485.65 1 -17296.00
+  name "RR1_TreesStart_89"
+}
+SimpleTree {
+  translation -3483.95 1 -17288.00
+  name "RR1_TreesStart_90"
+}
+SimpleTree {
+  translation -3485.65 1 -17280.00
+  name "RR1_TreesStart_91"
+}
+SimpleTree {
+  translation -3483.95 1 -17272.00
+  name "RR1_TreesStart_92"
+}
+SimpleTree {
+  translation -3485.65 1 -17264.00
+  name "RR1_TreesStart_93"
+}
+SimpleTree {
+  translation -3483.95 1 -17256.00
+  name "RR1_TreesStart_94"
+}
+SimpleTree {
+  translation -3485.65 1 -17248.00
+  name "RR1_TreesStart_95"
+}
+SimpleTree {
+  translation -3483.95 1 -17240.00
+  name "RR1_TreesStart_96"
+}
+SimpleTree {
+  translation -3485.65 1 -17232.00
+  name "RR1_TreesStart_97"
+}
+SimpleTree {
+  translation -3483.95 1 -17224.00
+  name "RR1_TreesStart_98"
+}
+SimpleTree {
+  translation -3485.65 1 -17216.00
+  name "RR1_TreesStart_99"
+}
+SimpleTree {
+  translation -3483.95 1 -17208.00
+  name "RR1_TreesStart_100"
+}
+SimpleTree {
+  translation -3485.65 1 -17200.00
+  name "RR1_TreesStart_101"
+}
+SimpleTree {
+  translation -3483.95 1 -17192.00
+  name "RR1_TreesStart_102"
+}
+SimpleTree {
+  translation -3485.65 1 -17184.00
+  name "RR1_TreesStart_103"
+}
+SimpleTree {
+  translation -3483.95 1 -17176.00
+  name "RR1_TreesStart_104"
+}
+SimpleTree {
+  translation -3485.65 1 -17168.00
+  name "RR1_TreesStart_105"
+}
+SimpleTree {
+  translation -3483.95 1 -17160.00
+  name "RR1_TreesStart_106"
+}
+SimpleTree {
+  translation -3485.65 1 -17152.00
+  name "RR1_TreesStart_107"
+}
+SimpleTree {
+  translation -3483.95 1 -17144.00
+  name "RR1_TreesStart_108"
+}
+SimpleTree {
+  translation -3485.65 1 -17136.00
+  name "RR1_TreesStart_109"
+}
+SimpleTree {
+  translation -3483.95 1 -17128.00
+  name "RR1_TreesStart_110"
+}
+SimpleTree {
+  translation -3485.65 1 -17120.00
+  name "RR1_TreesStart_111"
+}
+SimpleTree {
+  translation -3483.95 1 -17112.00
+  name "RR1_TreesStart_112"
+}
+SimpleTree {
+  translation -3485.65 1 -17104.00
+  name "RR1_TreesStart_113"
+}
+SimpleTree {
+  translation -3483.95 1 -17096.00
+  name "RR1_TreesStart_114"
+}
+SimpleTree {
+  translation -3485.65 1 -17088.00
+  name "RR1_TreesStart_115"
+}
+SimpleTree {
+  translation -3483.95 1 -17080.00
+  name "RR1_TreesStart_116"
+}
+SimpleTree {
+  translation -3485.65 1 -17072.00
+  name "RR1_TreesStart_117"
+}
+SimpleTree {
+  translation -3483.95 1 -17064.00
+  name "RR1_TreesStart_118"
+}
+SimpleTree {
+  translation -3485.65 1 -17056.00
+  name "RR1_TreesStart_119"
+}
+SimpleTree {
+  translation -3483.95 1 -17048.00
+  name "RR1_TreesStart_120"
+}
+SimpleTree {
+  translation -3485.65 1 -17040.00
+  name "RR1_TreesStart_121"
+}
+SimpleTree {
+  translation -3483.95 1 -17032.00
+  name "RR1_TreesStart_122"
+}
+SimpleTree {
+  translation -3485.65 1 -17024.00
+  name "RR1_TreesStart_123"
+}
+SimpleTree {
+  translation -3483.95 1 -17016.00
+  name "RR1_TreesStart_124"
+}
+SimpleTree {
+  translation -3485.65 1 -17008.00
+  name "RR1_TreesStart_125"
+}
+SimpleTree {
+  translation -3483.95 1 -17000.00
+  name "RR1_TreesStart_126"
+}
+SimpleTree {
+  translation -3485.65 1 -16992.00
+  name "RR1_TreesStart_127"
+}
+SimpleTree {
+  translation -3483.95 1 -16984.00
+  name "RR1_TreesStart_128"
+}
+SimpleTree {
+  translation -3485.65 1 -16976.00
+  name "RR1_TreesStart_129"
+}
+SimpleTree {
+  translation -3483.95 1 -16968.00
+  name "RR1_TreesStart_130"
+}
+SimpleTree {
+  translation -3485.65 1 -16960.00
+  name "RR1_TreesStart_131"
+}
+SimpleTree {
+  translation -3483.95 1 -16952.00
+  name "RR1_TreesStart_132"
+}
+SimpleTree {
+  translation -3485.65 1 -16944.00
+  name "RR1_TreesStart_133"
+}
+SimpleTree {
+  translation -3483.95 1 -16936.00
+  name "RR1_TreesStart_134"
+}
+SimpleTree {
+  translation -3485.65 1 -16928.00
+  name "RR1_TreesStart_135"
+}
+SimpleTree {
+  translation -3483.95 1 -16920.00
+  name "RR1_TreesStart_136"
+}
+SimpleTree {
+  translation -3485.65 1 -16912.00
+  name "RR1_TreesStart_137"
+}
+SimpleTree {
+  translation -3483.95 1 -16904.00
+  name "RR1_TreesStart_138"
+}
+SimpleTree {
+  translation -3485.65 1 -16896.00
+  name "RR1_TreesStart_139"
+}
+SimpleTree {
+  translation -3483.95 1 -16888.00
+  name "RR1_TreesStart_140"
+}
+SimpleTree {
+  translation -3485.65 1 -16880.00
+  name "RR1_TreesStart_141"
+}
+SimpleTree {
+  translation -3483.95 1 -16872.00
+  name "RR1_TreesStart_142"
+}
+SimpleTree {
+  translation -3485.65 1 -16864.00
+  name "RR1_TreesStart_143"
+}
+SimpleTree {
+  translation -3483.95 1 -16856.00
+  name "RR1_TreesStart_144"
+}
+SimpleTree {
+  translation -3485.65 1 -16848.00
+  name "RR1_TreesStart_145"
+}
+SimpleTree {
+  translation -3483.95 1 -16840.00
+  name "RR1_TreesStart_146"
+}
+SimpleTree {
+  translation -3485.65 1 -16832.00
+  name "RR1_TreesStart_147"
+}
+SimpleTree {
+  translation -3483.95 1 -16824.00
+  name "RR1_TreesStart_148"
+}
+SimpleTree {
+  translation -3485.65 1 -16816.00
+  name "RR1_TreesStart_149"
+}
+SimpleTree {
+  translation -3483.95 1 -16808.00
+  name "RR1_TreesStart_150"
+}
+SimpleTree {
+  translation -3485.65 1 -16800.00
+  name "RR1_TreesStart_151"
+}
+SimpleTree {
+  translation -3483.95 1 -16792.00
+  name "RR1_TreesStart_152"
+}
+SimpleTree {
+  translation -3485.65 1 -16784.00
+  name "RR1_TreesStart_153"
+}
+SimpleTree {
+  translation -3483.95 1 -16776.00
+  name "RR1_TreesStart_154"
+}
+SimpleTree {
+  translation -3485.65 1 -16768.00
+  name "RR1_TreesStart_155"
+}
+SimpleTree {
+  translation -3483.95 1 -16760.00
+  name "RR1_TreesStart_156"
+}
+SimpleTree {
+  translation -3485.65 1 -16752.00
+  name "RR1_TreesStart_157"
+}
+SimpleTree {
+  translation -3483.95 1 -16744.00
+  name "RR1_TreesStart_158"
+}
+
+SpeedLimitSign {
+  translation -3489.40 1 -18000.00
+  name "RR1_Speed_0_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -18000.00
+  name "RR1_Speed_0_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -17700.00
+  name "RR1_Speed_1_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -17700.00
+  name "RR1_Speed_1_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -17400.00
+  name "RR1_Speed_2_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -17400.00
+  name "RR1_Speed_2_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -17100.00
+  name "RR1_Speed_3_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -17100.00
+  name "RR1_Speed_3_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -16800.00
+  name "RR1_Speed_4_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -16800.00
+  name "RR1_Speed_4_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -16500.00
+  name "RR1_Speed_5_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -16500.00
+  name "RR1_Speed_5_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -16200.00
+  name "RR1_Speed_6_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -16200.00
+  name "RR1_Speed_6_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -15900.00
+  name "RR1_Speed_7_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -15900.00
+  name "RR1_Speed_7_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -15600.00
+  name "RR1_Speed_8_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -15600.00
+  name "RR1_Speed_8_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -15300.00
+  name "RR1_Speed_9_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -15300.00
+  name "RR1_Speed_9_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -15000.00
+  name "RR1_Speed_10_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -15000.00
+  name "RR1_Speed_10_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -14700.00
+  name "RR1_Speed_11_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -14700.00
+  name "RR1_Speed_11_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -14400.00
+  name "RR1_Speed_12_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -14400.00
+  name "RR1_Speed_12_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -14100.00
+  name "RR1_Speed_13_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -14100.00
+  name "RR1_Speed_13_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -13800.00
+  name "RR1_Speed_14_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -13800.00
+  name "RR1_Speed_14_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -13500.00
+  name "RR1_Speed_15_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -13500.00
+  name "RR1_Speed_15_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -13200.00
+  name "RR1_Speed_16_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -13200.00
+  name "RR1_Speed_16_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -12900.00
+  name "RR1_Speed_17_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -12900.00
+  name "RR1_Speed_17_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -12600.00
+  name "RR1_Speed_18_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -12600.00
+  name "RR1_Speed_18_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -12300.00
+  name "RR1_Speed_19_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -12300.00
+  name "RR1_Speed_19_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -12000.00
+  name "RR1_Speed_20_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -12000.00
+  name "RR1_Speed_20_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -11700.00
+  name "RR1_Speed_21_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -11700.00
+  name "RR1_Speed_21_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -11400.00
+  name "RR1_Speed_22_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -11400.00
+  name "RR1_Speed_22_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -11100.00
+  name "RR1_Speed_23_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -11100.00
+  name "RR1_Speed_23_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -10800.00
+  name "RR1_Speed_24_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -10800.00
+  name "RR1_Speed_24_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -10500.00
+  name "RR1_Speed_25_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -10500.00
+  name "RR1_Speed_25_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -10200.00
+  name "RR1_Speed_26_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -10200.00
+  name "RR1_Speed_26_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -9900.00
+  name "RR1_Speed_27_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -9900.00
+  name "RR1_Speed_27_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -9600.00
+  name "RR1_Speed_28_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -9600.00
+  name "RR1_Speed_28_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -9300.00
+  name "RR1_Speed_29_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -9300.00
+  name "RR1_Speed_29_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -9000.00
+  name "RR1_Speed_30_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -9000.00
+  name "RR1_Speed_30_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -8700.00
+  name "RR1_Speed_31_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -8700.00
+  name "RR1_Speed_31_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -8400.00
+  name "RR1_Speed_32_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -8400.00
+  name "RR1_Speed_32_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -8100.00
+  name "RR1_Speed_33_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -8100.00
+  name "RR1_Speed_33_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -7800.00
+  name "RR1_Speed_34_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -7800.00
+  name "RR1_Speed_34_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -7500.00
+  name "RR1_Speed_35_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -7500.00
+  name "RR1_Speed_35_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -7200.00
+  name "RR1_Speed_36_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -7200.00
+  name "RR1_Speed_36_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -6900.00
+  name "RR1_Speed_37_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -6900.00
+  name "RR1_Speed_37_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -6600.00
+  name "RR1_Speed_38_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -6600.00
+  name "RR1_Speed_38_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -6300.00
+  name "RR1_Speed_39_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -6300.00
+  name "RR1_Speed_39_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -6000.00
+  name "RR1_Speed_40_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -6000.00
+  name "RR1_Speed_40_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -5700.00
+  name "RR1_Speed_41_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -5700.00
+  name "RR1_Speed_41_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -5400.00
+  name "RR1_Speed_42_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -5400.00
+  name "RR1_Speed_42_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -5100.00
+  name "RR1_Speed_43_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -5100.00
+  name "RR1_Speed_43_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -4800.00
+  name "RR1_Speed_44_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -4800.00
+  name "RR1_Speed_44_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -4500.00
+  name "RR1_Speed_45_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -4500.00
+  name "RR1_Speed_45_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -4200.00
+  name "RR1_Speed_46_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -4200.00
+  name "RR1_Speed_46_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -3900.00
+  name "RR1_Speed_47_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -3900.00
+  name "RR1_Speed_47_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -3600.00
+  name "RR1_Speed_48_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -3600.00
+  name "RR1_Speed_48_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3489.40 1 -3300.00
+  name "RR1_Speed_49_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3510.60 1 -3300.00
+  name "RR1_Speed_49_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+
+CautionSign {
+  translation -3487.40 1 -16820.00
+  rotation 0 1 0 -0.3000
+  name "RR1_caution_curve_1"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3487.40 1 -16798.00
+  rotation 0 1 0 -0.3000
+  name "RR1_caution_curve_2"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3487.40 1 -16776.00
+  rotation 0 1 0 -0.3000
+  name "RR1_caution_curve_3"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3487.40 1 -16754.00
+  rotation 0 1 0 -0.3000
+  name "RR1_caution_curve_4"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3487.40 1 -16732.00
+  rotation 0 1 0 -0.3000
+  name "RR1_caution_curve_5"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3487.40 1 -16710.00
+  rotation 0 1 0 -0.3000
+  name "RR1_caution_curve_6"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+
+SimpleTree {
+  translation -3722.07 1 -2544.69
+  name "RR2_TreesStart_1"
+}
+SimpleTree {
+  translation -3720.37 1 -2536.69
+  name "RR2_TreesStart_2"
+}
+SimpleTree {
+  translation -3722.07 1 -2528.69
+  name "RR2_TreesStart_3"
+}
+SimpleTree {
+  translation -3720.37 1 -2520.69
+  name "RR2_TreesStart_4"
+}
+SimpleTree {
+  translation -3722.07 1 -2512.69
+  name "RR2_TreesStart_5"
+}
+SimpleTree {
+  translation -3720.37 1 -2504.69
+  name "RR2_TreesStart_6"
+}
+SimpleTree {
+  translation -3722.07 1 -2496.69
+  name "RR2_TreesStart_7"
+}
+SimpleTree {
+  translation -3720.37 1 -2488.69
+  name "RR2_TreesStart_8"
+}
+SimpleTree {
+  translation -3722.07 1 -2480.69
+  name "RR2_TreesStart_9"
+}
+SimpleTree {
+  translation -3720.37 1 -2472.69
+  name "RR2_TreesStart_10"
+}
+SimpleTree {
+  translation -3722.07 1 -2464.69
+  name "RR2_TreesStart_11"
+}
+SimpleTree {
+  translation -3720.37 1 -2456.69
+  name "RR2_TreesStart_12"
+}
+SimpleTree {
+  translation -3722.07 1 -2448.69
+  name "RR2_TreesStart_13"
+}
+SimpleTree {
+  translation -3720.37 1 -2440.69
+  name "RR2_TreesStart_14"
+}
+SimpleTree {
+  translation -3722.07 1 -2432.69
+  name "RR2_TreesStart_15"
+}
+SimpleTree {
+  translation -3720.37 1 -2424.69
+  name "RR2_TreesStart_16"
+}
+SimpleTree {
+  translation -3722.07 1 -2416.69
+  name "RR2_TreesStart_17"
+}
+SimpleTree {
+  translation -3720.37 1 -2408.69
+  name "RR2_TreesStart_18"
+}
+SimpleTree {
+  translation -3722.07 1 -2400.69
+  name "RR2_TreesStart_19"
+}
+SimpleTree {
+  translation -3720.37 1 -2392.69
+  name "RR2_TreesStart_20"
+}
+SimpleTree {
+  translation -3722.07 1 -2384.69
+  name "RR2_TreesStart_21"
+}
+SimpleTree {
+  translation -3720.37 1 -2376.69
+  name "RR2_TreesStart_22"
+}
+SimpleTree {
+  translation -3722.07 1 -2368.69
+  name "RR2_TreesStart_23"
+}
+SimpleTree {
+  translation -3720.37 1 -2360.69
+  name "RR2_TreesStart_24"
+}
+SimpleTree {
+  translation -3722.07 1 -2352.69
+  name "RR2_TreesStart_25"
+}
+SimpleTree {
+  translation -3720.37 1 -2344.69
+  name "RR2_TreesStart_26"
+}
+SimpleTree {
+  translation -3722.07 1 -2336.69
+  name "RR2_TreesStart_27"
+}
+SimpleTree {
+  translation -3720.37 1 -2328.69
+  name "RR2_TreesStart_28"
+}
+SimpleTree {
+  translation -3722.07 1 -2320.69
+  name "RR2_TreesStart_29"
+}
+SimpleTree {
+  translation -3720.37 1 -2312.69
+  name "RR2_TreesStart_30"
+}
+SimpleTree {
+  translation -3722.07 1 -2304.69
+  name "RR2_TreesStart_31"
+}
+SimpleTree {
+  translation -3720.37 1 -2296.69
+  name "RR2_TreesStart_32"
+}
+SimpleTree {
+  translation -3722.07 1 -2288.69
+  name "RR2_TreesStart_33"
+}
+SimpleTree {
+  translation -3720.37 1 -2280.69
+  name "RR2_TreesStart_34"
+}
+SimpleTree {
+  translation -3722.07 1 -2272.69
+  name "RR2_TreesStart_35"
+}
+SimpleTree {
+  translation -3720.37 1 -2264.69
+  name "RR2_TreesStart_36"
+}
+SimpleTree {
+  translation -3722.07 1 -2256.69
+  name "RR2_TreesStart_37"
+}
+SimpleTree {
+  translation -3720.37 1 -2248.69
+  name "RR2_TreesStart_38"
+}
+SimpleTree {
+  translation -3722.07 1 -2240.69
+  name "RR2_TreesStart_39"
+}
+SimpleTree {
+  translation -3720.37 1 -2232.69
+  name "RR2_TreesStart_40"
+}
+SimpleTree {
+  translation -3722.07 1 -2224.69
+  name "RR2_TreesStart_41"
+}
+SimpleTree {
+  translation -3720.37 1 -2216.69
+  name "RR2_TreesStart_42"
+}
+SimpleTree {
+  translation -3722.07 1 -2208.69
+  name "RR2_TreesStart_43"
+}
+SimpleTree {
+  translation -3720.37 1 -2200.69
+  name "RR2_TreesStart_44"
+}
+SimpleTree {
+  translation -3722.07 1 -2192.69
+  name "RR2_TreesStart_45"
+}
+SimpleTree {
+  translation -3720.37 1 -2184.69
+  name "RR2_TreesStart_46"
+}
+SimpleTree {
+  translation -3722.07 1 -2176.69
+  name "RR2_TreesStart_47"
+}
+SimpleTree {
+  translation -3720.37 1 -2168.69
+  name "RR2_TreesStart_48"
+}
+SimpleTree {
+  translation -3722.07 1 -2160.69
+  name "RR2_TreesStart_49"
+}
+SimpleTree {
+  translation -3720.37 1 -2152.69
+  name "RR2_TreesStart_50"
+}
+SimpleTree {
+  translation -3722.07 1 -2144.69
+  name "RR2_TreesStart_51"
+}
+SimpleTree {
+  translation -3720.37 1 -2136.69
+  name "RR2_TreesStart_52"
+}
+SimpleTree {
+  translation -3722.07 1 -2128.69
+  name "RR2_TreesStart_53"
+}
+SimpleTree {
+  translation -3720.37 1 -2120.69
+  name "RR2_TreesStart_54"
+}
+SimpleTree {
+  translation -3722.07 1 -2112.69
+  name "RR2_TreesStart_55"
+}
+SimpleTree {
+  translation -3720.37 1 -2104.69
+  name "RR2_TreesStart_56"
+}
+SimpleTree {
+  translation -3722.07 1 -2096.69
+  name "RR2_TreesStart_57"
+}
+SimpleTree {
+  translation -3720.37 1 -2088.69
+  name "RR2_TreesStart_58"
+}
+SimpleTree {
+  translation -3722.07 1 -2080.69
+  name "RR2_TreesStart_59"
+}
+SimpleTree {
+  translation -3720.37 1 -2072.69
+  name "RR2_TreesStart_60"
+}
+SimpleTree {
+  translation -3722.07 1 -2064.69
+  name "RR2_TreesStart_61"
+}
+SimpleTree {
+  translation -3720.37 1 -2056.69
+  name "RR2_TreesStart_62"
+}
+SimpleTree {
+  translation -3722.07 1 -2048.69
+  name "RR2_TreesStart_63"
+}
+SimpleTree {
+  translation -3720.37 1 -2040.69
+  name "RR2_TreesStart_64"
+}
+SimpleTree {
+  translation -3722.07 1 -2032.69
+  name "RR2_TreesStart_65"
+}
+SimpleTree {
+  translation -3720.37 1 -2024.69
+  name "RR2_TreesStart_66"
+}
+SimpleTree {
+  translation -3722.07 1 -2016.69
+  name "RR2_TreesStart_67"
+}
+SimpleTree {
+  translation -3720.37 1 -2008.69
+  name "RR2_TreesStart_68"
+}
+SimpleTree {
+  translation -3722.07 1 -2000.69
+  name "RR2_TreesStart_69"
+}
+SimpleTree {
+  translation -3720.37 1 -1992.69
+  name "RR2_TreesStart_70"
+}
+SimpleTree {
+  translation -3722.07 1 -1984.69
+  name "RR2_TreesStart_71"
+}
+SimpleTree {
+  translation -3720.37 1 -1976.69
+  name "RR2_TreesStart_72"
+}
+SimpleTree {
+  translation -3722.07 1 -1968.69
+  name "RR2_TreesStart_73"
+}
+SimpleTree {
+  translation -3720.37 1 -1960.69
+  name "RR2_TreesStart_74"
+}
+SimpleTree {
+  translation -3722.07 1 -1952.69
+  name "RR2_TreesStart_75"
+}
+SimpleTree {
+  translation -3720.37 1 -1944.69
+  name "RR2_TreesStart_76"
+}
+SimpleTree {
+  translation -3722.07 1 -1936.69
+  name "RR2_TreesStart_77"
+}
+SimpleTree {
+  translation -3720.37 1 -1928.69
+  name "RR2_TreesStart_78"
+}
+SimpleTree {
+  translation -3722.07 1 -1920.69
+  name "RR2_TreesStart_79"
+}
+SimpleTree {
+  translation -3720.37 1 -1912.69
+  name "RR2_TreesStart_80"
+}
+SimpleTree {
+  translation -3722.07 1 -1904.69
+  name "RR2_TreesStart_81"
+}
+SimpleTree {
+  translation -3720.37 1 -1896.69
+  name "RR2_TreesStart_82"
+}
+SimpleTree {
+  translation -3722.07 1 -1888.69
+  name "RR2_TreesStart_83"
+}
+SimpleTree {
+  translation -3720.37 1 -1880.69
+  name "RR2_TreesStart_84"
+}
+SimpleTree {
+  translation -3722.07 1 -1872.69
+  name "RR2_TreesStart_85"
+}
+SimpleTree {
+  translation -3720.37 1 -1864.69
+  name "RR2_TreesStart_86"
+}
+SimpleTree {
+  translation -3722.07 1 -1856.69
+  name "RR2_TreesStart_87"
+}
+SimpleTree {
+  translation -3720.37 1 -1848.69
+  name "RR2_TreesStart_88"
+}
+SimpleTree {
+  translation -3722.07 1 -1840.69
+  name "RR2_TreesStart_89"
+}
+SimpleTree {
+  translation -3720.37 1 -1832.69
+  name "RR2_TreesStart_90"
+}
+SimpleTree {
+  translation -3722.07 1 -1824.69
+  name "RR2_TreesStart_91"
+}
+SimpleTree {
+  translation -3720.37 1 -1816.69
+  name "RR2_TreesStart_92"
+}
+SimpleTree {
+  translation -3722.07 1 -1808.69
+  name "RR2_TreesStart_93"
+}
+SimpleTree {
+  translation -3720.37 1 -1800.69
+  name "RR2_TreesStart_94"
+}
+SimpleTree {
+  translation -3722.07 1 -1792.69
+  name "RR2_TreesStart_95"
+}
+SimpleTree {
+  translation -3720.37 1 -1784.69
+  name "RR2_TreesStart_96"
+}
+SimpleTree {
+  translation -3722.07 1 -1776.69
+  name "RR2_TreesStart_97"
+}
+SimpleTree {
+  translation -3720.37 1 -1768.69
+  name "RR2_TreesStart_98"
+}
+SimpleTree {
+  translation -3722.07 1 -1760.69
+  name "RR2_TreesStart_99"
+}
+SimpleTree {
+  translation -3720.37 1 -1752.69
+  name "RR2_TreesStart_100"
+}
+SimpleTree {
+  translation -3722.07 1 -1744.69
+  name "RR2_TreesStart_101"
+}
+SimpleTree {
+  translation -3720.37 1 -1736.69
+  name "RR2_TreesStart_102"
+}
+SimpleTree {
+  translation -3722.07 1 -1728.69
+  name "RR2_TreesStart_103"
+}
+SimpleTree {
+  translation -3720.37 1 -1720.69
+  name "RR2_TreesStart_104"
+}
+SimpleTree {
+  translation -3722.07 1 -1712.69
+  name "RR2_TreesStart_105"
+}
+SimpleTree {
+  translation -3720.37 1 -1704.69
+  name "RR2_TreesStart_106"
+}
+SimpleTree {
+  translation -3722.07 1 -1696.69
+  name "RR2_TreesStart_107"
+}
+SimpleTree {
+  translation -3720.37 1 -1688.69
+  name "RR2_TreesStart_108"
+}
+SimpleTree {
+  translation -3722.07 1 -1680.69
+  name "RR2_TreesStart_109"
+}
+SimpleTree {
+  translation -3720.37 1 -1672.69
+  name "RR2_TreesStart_110"
+}
+SimpleTree {
+  translation -3722.07 1 -1664.69
+  name "RR2_TreesStart_111"
+}
+SimpleTree {
+  translation -3720.37 1 -1656.69
+  name "RR2_TreesStart_112"
+}
+SimpleTree {
+  translation -3722.07 1 -1648.69
+  name "RR2_TreesStart_113"
+}
+SimpleTree {
+  translation -3720.37 1 -1640.69
+  name "RR2_TreesStart_114"
+}
+SimpleTree {
+  translation -3722.07 1 -1632.69
+  name "RR2_TreesStart_115"
+}
+SimpleTree {
+  translation -3720.37 1 -1624.69
+  name "RR2_TreesStart_116"
+}
+SimpleTree {
+  translation -3722.07 1 -1616.69
+  name "RR2_TreesStart_117"
+}
+SimpleTree {
+  translation -3720.37 1 -1608.69
+  name "RR2_TreesStart_118"
+}
+SimpleTree {
+  translation -3722.07 1 -1600.69
+  name "RR2_TreesStart_119"
+}
+SimpleTree {
+  translation -3720.37 1 -1592.69
+  name "RR2_TreesStart_120"
+}
+SimpleTree {
+  translation -3722.07 1 -1584.69
+  name "RR2_TreesStart_121"
+}
+SimpleTree {
+  translation -3720.37 1 -1576.69
+  name "RR2_TreesStart_122"
+}
+SimpleTree {
+  translation -3722.07 1 -1568.69
+  name "RR2_TreesStart_123"
+}
+SimpleTree {
+  translation -3720.37 1 -1560.69
+  name "RR2_TreesStart_124"
+}
+SimpleTree {
+  translation -3722.07 1 -1552.69
+  name "RR2_TreesStart_125"
+}
+SimpleTree {
+  translation -3720.37 1 -1544.69
+  name "RR2_TreesStart_126"
+}
+SimpleTree {
+  translation -3722.07 1 -1536.69
+  name "RR2_TreesStart_127"
+}
+SimpleTree {
+  translation -3720.37 1 -1528.69
+  name "RR2_TreesStart_128"
+}
+SimpleTree {
+  translation -3722.07 1 -1520.69
+  name "RR2_TreesStart_129"
+}
+SimpleTree {
+  translation -3720.37 1 -1512.69
+  name "RR2_TreesStart_130"
+}
+SimpleTree {
+  translation -3722.07 1 -1504.69
+  name "RR2_TreesStart_131"
+}
+SimpleTree {
+  translation -3720.37 1 -1496.69
+  name "RR2_TreesStart_132"
+}
+SimpleTree {
+  translation -3722.07 1 -1488.69
+  name "RR2_TreesStart_133"
+}
+SimpleTree {
+  translation -3720.37 1 -1480.69
+  name "RR2_TreesStart_134"
+}
+SimpleTree {
+  translation -3722.07 1 -1472.69
+  name "RR2_TreesStart_135"
+}
+SimpleTree {
+  translation -3720.37 1 -1464.69
+  name "RR2_TreesStart_136"
+}
+SimpleTree {
+  translation -3722.07 1 -1456.69
+  name "RR2_TreesStart_137"
+}
+SimpleTree {
+  translation -3720.37 1 -1448.69
+  name "RR2_TreesStart_138"
+}
+SimpleTree {
+  translation -3722.07 1 -1440.69
+  name "RR2_TreesStart_139"
+}
+SimpleTree {
+  translation -3720.37 1 -1432.69
+  name "RR2_TreesStart_140"
+}
+SimpleTree {
+  translation -3722.07 1 -1424.69
+  name "RR2_TreesStart_141"
+}
+SimpleTree {
+  translation -3720.37 1 -1416.69
+  name "RR2_TreesStart_142"
+}
+SimpleTree {
+  translation -3722.07 1 -1408.69
+  name "RR2_TreesStart_143"
+}
+SimpleTree {
+  translation -3720.37 1 -1400.69
+  name "RR2_TreesStart_144"
+}
+SimpleTree {
+  translation -3722.07 1 -1392.69
+  name "RR2_TreesStart_145"
+}
+SimpleTree {
+  translation -3720.37 1 -1384.69
+  name "RR2_TreesStart_146"
+}
+SimpleTree {
+  translation -3722.07 1 -1376.69
+  name "RR2_TreesStart_147"
+}
+SimpleTree {
+  translation -3720.37 1 -1368.69
+  name "RR2_TreesStart_148"
+}
+SimpleTree {
+  translation -3722.07 1 -1360.69
+  name "RR2_TreesStart_149"
+}
+SimpleTree {
+  translation -3720.37 1 -1352.69
+  name "RR2_TreesStart_150"
+}
+SimpleTree {
+  translation -3722.07 1 -1344.69
+  name "RR2_TreesStart_151"
+}
+SimpleTree {
+  translation -3720.37 1 -1336.69
+  name "RR2_TreesStart_152"
+}
+SimpleTree {
+  translation -3722.07 1 -1328.69
+  name "RR2_TreesStart_153"
+}
+SimpleTree {
+  translation -3720.37 1 -1320.69
+  name "RR2_TreesStart_154"
+}
+SimpleTree {
+  translation -3722.07 1 -1312.69
+  name "RR2_TreesStart_155"
+}
+SimpleTree {
+  translation -3720.37 1 -1304.69
+  name "RR2_TreesStart_156"
+}
+SimpleTree {
+  translation -3722.07 1 -1296.69
+  name "RR2_TreesStart_157"
+}
+SimpleTree {
+  translation -3720.37 1 -1288.69
+  name "RR2_TreesStart_158"
+}
+
+SpeedLimitSign {
+  translation -3725.82 1 -2544.69
+  name "RR2_Speed_0_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -2544.69
+  name "RR2_Speed_0_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 -2244.69
+  name "RR2_Speed_1_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -2244.69
+  name "RR2_Speed_1_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 -1944.69
+  name "RR2_Speed_2_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -1944.69
+  name "RR2_Speed_2_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 -1644.69
+  name "RR2_Speed_3_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -1644.69
+  name "RR2_Speed_3_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 -1344.69
+  name "RR2_Speed_4_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -1344.69
+  name "RR2_Speed_4_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 -1044.69
+  name "RR2_Speed_5_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -1044.69
+  name "RR2_Speed_5_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 -744.69
+  name "RR2_Speed_6_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -744.69
+  name "RR2_Speed_6_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 -444.69
+  name "RR2_Speed_7_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -444.69
+  name "RR2_Speed_7_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 -144.69
+  name "RR2_Speed_8_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 -144.69
+  name "RR2_Speed_8_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 155.31
+  name "RR2_Speed_9_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 155.31
+  name "RR2_Speed_9_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 455.31
+  name "RR2_Speed_10_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 455.31
+  name "RR2_Speed_10_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 755.31
+  name "RR2_Speed_11_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 755.31
+  name "RR2_Speed_11_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 1055.31
+  name "RR2_Speed_12_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 1055.31
+  name "RR2_Speed_12_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 1355.31
+  name "RR2_Speed_13_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 1355.31
+  name "RR2_Speed_13_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 1655.31
+  name "RR2_Speed_14_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 1655.31
+  name "RR2_Speed_14_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 1955.31
+  name "RR2_Speed_15_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 1955.31
+  name "RR2_Speed_15_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 2255.31
+  name "RR2_Speed_16_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 2255.31
+  name "RR2_Speed_16_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 2555.31
+  name "RR2_Speed_17_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 2555.31
+  name "RR2_Speed_17_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 2855.31
+  name "RR2_Speed_18_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 2855.31
+  name "RR2_Speed_18_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 3155.31
+  name "RR2_Speed_19_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 3155.31
+  name "RR2_Speed_19_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 3455.31
+  name "RR2_Speed_20_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 3455.31
+  name "RR2_Speed_20_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 3755.31
+  name "RR2_Speed_21_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 3755.31
+  name "RR2_Speed_21_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 4055.31
+  name "RR2_Speed_22_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 4055.31
+  name "RR2_Speed_22_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 4355.31
+  name "RR2_Speed_23_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 4355.31
+  name "RR2_Speed_23_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 4655.31
+  name "RR2_Speed_24_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 4655.31
+  name "RR2_Speed_24_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 4955.31
+  name "RR2_Speed_25_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 4955.31
+  name "RR2_Speed_25_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 5255.31
+  name "RR2_Speed_26_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 5255.31
+  name "RR2_Speed_26_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 5555.31
+  name "RR2_Speed_27_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 5555.31
+  name "RR2_Speed_27_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 5855.31
+  name "RR2_Speed_28_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 5855.31
+  name "RR2_Speed_28_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 6155.31
+  name "RR2_Speed_29_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 6155.31
+  name "RR2_Speed_29_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 6455.31
+  name "RR2_Speed_30_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 6455.31
+  name "RR2_Speed_30_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 6755.31
+  name "RR2_Speed_31_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 6755.31
+  name "RR2_Speed_31_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 7055.31
+  name "RR2_Speed_32_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 7055.31
+  name "RR2_Speed_32_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 7355.31
+  name "RR2_Speed_33_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 7355.31
+  name "RR2_Speed_33_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 7655.31
+  name "RR2_Speed_34_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 7655.31
+  name "RR2_Speed_34_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 7955.31
+  name "RR2_Speed_35_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 7955.31
+  name "RR2_Speed_35_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 8255.31
+  name "RR2_Speed_36_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 8255.31
+  name "RR2_Speed_36_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 8555.31
+  name "RR2_Speed_37_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 8555.31
+  name "RR2_Speed_37_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 8855.31
+  name "RR2_Speed_38_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 8855.31
+  name "RR2_Speed_38_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 9155.31
+  name "RR2_Speed_39_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 9155.31
+  name "RR2_Speed_39_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 9455.31
+  name "RR2_Speed_40_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 9455.31
+  name "RR2_Speed_40_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 9755.31
+  name "RR2_Speed_41_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 9755.31
+  name "RR2_Speed_41_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 10055.31
+  name "RR2_Speed_42_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 10055.31
+  name "RR2_Speed_42_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 10355.31
+  name "RR2_Speed_43_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 10355.31
+  name "RR2_Speed_43_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 10655.31
+  name "RR2_Speed_44_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 10655.31
+  name "RR2_Speed_44_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 10955.31
+  name "RR2_Speed_45_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 10955.31
+  name "RR2_Speed_45_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 11255.31
+  name "RR2_Speed_46_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 11255.31
+  name "RR2_Speed_46_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 11555.31
+  name "RR2_Speed_47_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 11555.31
+  name "RR2_Speed_47_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 11855.31
+  name "RR2_Speed_48_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 11855.31
+  name "RR2_Speed_48_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3725.82 1 12155.31
+  name "RR2_Speed_49_R"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+SpeedLimitSign {
+  translation -3747.02 1 12155.31
+  name "RR2_Speed_49_L"
+  signBoards [ SpeedLimitPanel { translation 0 0 -0.023 signImage [ "textures/signs/us/speed_limit_100.jpg" ] } ]
+}
+
+CautionSign {
+  translation -3723.82 1 -1364.69
+  rotation 0 1 0 -0.3000
+  name "RR2_caution_curve_1"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3723.82 1 -1342.69
+  rotation 0 1 0 -0.3000
+  name "RR2_caution_curve_2"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3723.82 1 -1320.69
+  rotation 0 1 0 -0.3000
+  name "RR2_caution_curve_3"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3723.82 1 -1298.69
+  rotation 0 1 0 -0.3000
+  name "RR2_caution_curve_4"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3723.82 1 -1276.69
+  rotation 0 1 0 -0.3000
+  name "RR2_caution_curve_5"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+CautionSign {
+  translation -3723.82 1 -1254.69
+  rotation 0 1 0 -0.3000
+  name "RR2_caution_curve_6"
+  signBoards [ CautionPanel { translation 0 -0.17 0 signImage [ "textures/signs/us/left_curve.jpg" ] } ]
+}
+
+DEF EGO_PARTICIPANT BmwX5Au {
+  translation -3166.3480 1.38 -17703.0966
+  rotation 0 1 0 -0.3000
+  color 0.1 0.11 0.1
+  name "veh-driver"
+  controller "auto_ringroad_driver"
+  supervisor TRUE
+  sensorsSlotFront [
+    Mirror {
+      translation 1.01417 0.531 1.72733
+      rotation 0.7006521232906121 0.6883611211278197 0.18773803303541975 0.3
+      supervisor TRUE
+      fieldOfView 1.57
+      width 0.15
+      height 0.1
+      frameThickness 0.00025
+    }
+    Mirror {
+      translation -1.01177 0.525008 1.73931
+      rotation -0.16395703340977408 0.978412199372542 -0.12580802563609275 -0.4
+      supervisor TRUE
+      fieldOfView 1.57
+      width 0.2
+      height 0.1
+      frameThickness 0.00025
+    }
+    Radar {
+      minRange 2
+      maxRange 80
+      horizontalFieldOfView 0.05
+      verticalFieldOfView 0.002
+    }
+  ]
+  sensorsSlotTop [
+    GPS { }
+    Receiver { }
+    Emitter { }
+  ]
+  sensorsSlotCenter [
+    Display {
+      width 387
+      height 228
+    }
+  ]
+  completeInterior FALSE
+  innerWindowTransparency 1
+}
+BmwX5 {
+  translation -3503.6000 1.4 -16868.3000
+  color 0.63943 0.02501 0.27503
+  name "CAV_Surr_row1_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -16898.3000
+  color 0.22321 0.73647 0.67670
+  name "CAV_Surr_row2_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -16928.3000
+  color 0.89218 0.08694 0.42192
+  name "CAV_Surr_row3_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -16958.3000
+  color 0.02980 0.21864 0.50536
+  name "CAV_Surr_row4_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -16988.3000
+  color 0.02654 0.19884 0.64988
+  name "CAV_Surr_row5_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -17018.3000
+  color 0.54494 0.22044 0.58927
+  name "CAV_Surr_row6_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -17048.3000
+  color 0.80943 0.00650 0.80582
+  name "CAV_Surr_row7_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -17078.3000
+  color 0.69814 0.34025 0.15548
+  name "CAV_Surr_row8_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -17108.3000
+  color 0.95721 0.33659 0.09275
+  name "CAV_Surr_row9_Lane1"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -16868.3000
+  color 0.09672 0.84749 0.60373
+  name "CAV_Surr_row1_Lane2"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -16898.3000
+  color 0.80713 0.72973 0.53623
+  name "CAV_Surr_row2_Lane2"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -16928.3000
+  color 0.97312 0.37853 0.55204
+  name "CAV_Surr_row3_Lane2"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -16958.3000
+  color 0.82940 0.61852 0.86171
+  name "CAV_Surr_row4_Lane2"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -16988.3000
+  color 0.57735 0.70457 0.04582
+  name "CAV_Surr_row5_Lane2"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -17018.3000
+  color 0.22790 0.28939 0.07979
+  name "CAV_Surr_row6_Lane2"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -17048.3000
+  color 0.23279 0.10100 0.27797
+  name "CAV_Surr_row7_Lane2"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3496.4000 1.4 -16868.3000
+  color 0.63568 0.36483 0.37018
+  name "CAV_Surr_row1_Lane3"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3496.4000 1.4 -16898.3000
+  color 0.20951 0.26698 0.93665
+  name "CAV_Surr_row2_Lane3"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3496.4000 1.4 -16928.3000
+  color 0.64804 0.60913 0.17114
+  name "CAV_Surr_row3_Lane3"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3496.4000 1.4 -16958.3000
+  color 0.72913 0.16340 0.37946
+  name "CAV_Surr_row4_Lane3"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3492.8000 1.4 -16868.3000
+  color 0.98952 0.64000 0.55695
+  name "CAV_Surr_row1_Lane4"
+  controller "auto_surrounding_merge"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -14800.0000
+  color 0.68461 0.84285 0.77600
+  name "CAV_StopnGo_row2_Lane1"
+  controller "auto_stop_and_go"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -14770.0000
+  color 0.22905 0.03210 0.31545
+  name "CAV_StopnGo_row1_Lane1"
+  controller "auto_stop_and_go"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -14800.0000
+  color 0.26774 0.21098 0.94291
+  name "CAV_StopnGo_row2_Lane2"
+  controller "auto_stop_and_go"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3500.0000 1.4 -14770.0000
+  color 0.87637 0.31468 0.65544
+  name "CAV_StopnGo_row1_Lane2"
+  controller "auto_stop_and_go"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3496.4000 1.4 -14800.0000
+  color 0.39563 0.91455 0.45885
+  name "CAV_StopnGo_row2_Lane3"
+  controller "auto_stop_and_go"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3496.4000 1.4 -14770.0000
+  color 0.26488 0.24663 0.56137
+  name "CAV_StopnGo_row1_Lane3"
+  controller "auto_stop_and_go"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3492.8000 1.4 -14800.0000
+  color 0.26274 0.58459 0.89782
+  name "CAV_StopnGo_row2_Lane4"
+  controller "auto_stop_and_go"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3492.8000 1.4 -14770.0000
+  color 0.39940 0.21932 0.99754
+  name "CAV_StopnGo_row1_Lane4"
+  controller "auto_stop_and_go"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+BmwX5 {
+  translation -3503.6000 1.4 -6570.0000
+  color 0.50953 0.09091 0.04712
+  name "Broken_Surr_row0_Lane1"
+  controller "auto_broken"
+  supervisor TRUE
+  sensorsSlotFront [ Radar { minRange 2 maxRange 300 horizontalFieldOfView 0.5 verticalFieldOfView 0.002 } ]
+  sensorsSlotTop [ GPS {} Receiver {} Emitter {} ]
+  interior FALSE
+  dynamicSpeedDisplay FALSE
+  indicatorLevers FALSE
+  completeInterior FALSE
+}
+
+HighwayPole {
+  translation -3785.32 0.2 12245.9
+  rotation 0 1 0 1.5708
+  name "Experiment_Ends"
+  stand 2
+  height 5
+  thickness 0.35
+  curveRadius 0.5
+  rightHorizontalSigns [ HighwaySign { translation 0 0 1.55 height 2.5 length 8 texture [ "textures/Finish.jpg" ] } ]
+  rightVerticalSigns []
+}

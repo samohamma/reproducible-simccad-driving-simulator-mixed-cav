@@ -1,0 +1,14 @@
+{
+  "scenario_id": "bench_cavs12",
+  "measurement_duration_sim_s": 30.0,
+  "warmup_sim_time_s": 5.0,
+  "output_dir": "C:\\Revisions Code\\webots_project_cleaned_unified_benchmark\\webots_project_cleaned_unified_benchmark\\Extracted data\\performance",
+  "output_csv": "C:\\Revisions Code\\webots_project_cleaned_unified_benchmark\\webots_project_cleaned_unified_benchmark\\Extracted data\\performance\\all_scenarios_rtf_timeseries.csv",
+  "metadata": "C:\\Revisions Code\\webots_project_cleaned_unified_benchmark\\webots_project_cleaned_unified_benchmark\\benchmark_metadata\\bench_cavs12_metadata.json",
+  "adaptive_stop": true,
+  "adaptive_stop_before_tl_m": 5.0,
+  "adaptive_stop_target_def": "TL_onrmp0",
+  "adaptive_stop_target_name": "TL_onrmp0",
+  "ego_def": "EGO_PARTICIPANT",
+  "ego_name": "veh-driver"
+}

@@ -1,0 +1,15 @@
+# Python dependencies used by the Webots project utilities.
+# Tested with Python 3.7.9 on Windows 11. Webots provides the `controller`
+# and `vehicle` modules at controller runtime; they are not installed via pip.
+#
+# Core benchmark/figure utilities:
+numpy
+pandas
+matplotlib
+openpyxl
+
+# Runtime controller dependencies used by the participant/controller scripts:
+pygame
+playsound
+PyOpenAL
+pywin32

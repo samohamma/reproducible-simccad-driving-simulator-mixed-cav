@@ -1,0 +1,35 @@
+{
+  "description": "Optional custom benchmark configuration. By default, main.py generates bench_cavs10 ... bench_cavs39 without this file. If --config is supplied, only scenario_id and surr_counts are used; all other experiment-design variables are inherited from BASELINE_EXPERIMENT in main.py.",
+  "scenarios": [
+    {
+      "scenario_id": "bench_cavs10_custom",
+      "surr_counts": {
+        "1": 4,
+        "2": 4,
+        "3": 2,
+        "4": 0,
+        "5": 0
+      }
+    },
+    {
+      "scenario_id": "bench_cavs21_custom",
+      "surr_counts": {
+        "1": 9,
+        "2": 7,
+        "3": 4,
+        "4": 1,
+        "5": 0
+      }
+    },
+    {
+      "scenario_id": "bench_cavs39_custom",
+      "surr_counts": {
+        "1": 16,
+        "2": 13,
+        "3": 8,
+        "4": 2,
+        "5": 0
+      }
+    }
+  ]
+}
