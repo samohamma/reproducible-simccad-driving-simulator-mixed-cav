@@ -1,0 +1,7 @@
+#################### define display information  #######################################
+RampDefaultIcon_file='../icon/RampDefault.png' #Added
+MainDefaultIcon_file = '../icon/MainDefault.png' #Added
+MergeIcon_file = '../icon/Merge.png'
+MoveToRightIcon_file = '../icon/MoveToRight.png'
+DivergeIcon_file = '../icon/Diverge.png'
+#DefaultIcon_file = '../icon/Default.png' #Previous
